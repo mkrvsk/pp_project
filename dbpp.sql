@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema dbsalabay
+-- Schema art
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema dbsalabay
+-- Schema art
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbsalabay` DEFAULT CHARACTER SET utf8 ;
-USE `dbsalabay` ;
+CREATE SCHEMA IF NOT EXISTS `art` DEFAULT CHARACTER SET utf8 ;
+USE `art` ;
 
 -- -----------------------------------------------------
--- Table `dbsalabay`.`user`
+-- Table `art`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbsalabay`.`user` (
+CREATE TABLE IF NOT EXISTS `art`.`user` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL,
   `firstname` VARCHAR(255) NULL,
@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `dbsalabay`.`user` (
 
 
 -- -----------------------------------------------------
--- Table `dbsalabay`.`moderator`
+-- Table `art`.`moderator`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbsalabay`.`moderator` (
+CREATE TABLE IF NOT EXISTS `art`.`moderator` (
   `moderator_id` INT NOT NULL AUTO_INCREMENT,
   `moderatorname` VARCHAR(255) NOT NULL,
   `fristname` VARCHAR(255) NULL,
@@ -46,9 +46,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbsalabay`.`article`
+-- Table `art`.`article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbsalabay`.`article` (
+CREATE TABLE IF NOT EXISTS `art`.`article` (
   `article_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `body` TEXT(8000) NOT NULL,
@@ -58,19 +58,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbsalabay`.`state`
+-- Table `art`.`state`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbsalabay`.`state` (
-  `state_id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `art`.`state` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`state_id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbsalabay`.`updated_article`
+-- Table `art`.`updated_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbsalabay`.`updated_article` (
+CREATE TABLE IF NOT EXISTS `art`.`updated_article` (
   `article_id` INT NOT NULL,
   `state_id` INT NOT NULL,
   `moderator_id` INT NOT NULL,
@@ -83,22 +83,22 @@ CREATE TABLE IF NOT EXISTS `dbsalabay`.`updated_article` (
   INDEX `fk_updated_article_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_updated_article_state1`
     FOREIGN KEY (`state_id`)
-    REFERENCES `dbsalabay`.`state` (`state_id`)
+    REFERENCES `art`.`state` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_updated_article_article1`
     FOREIGN KEY (`article_id`)
-    REFERENCES `dbsalabay`.`article` (`article_id`)
+    REFERENCES `art`.`article` (`article_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_updated_article_moderator1`
     FOREIGN KEY (`moderator_id`)
-    REFERENCES `dbsalabay`.`moderator` (`moderator_id`)
+    REFERENCES `art`.`moderator` (`moderator_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_updated_article_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `dbsalabay`.`user` (`user_id`)
+    REFERENCES `art`.`user` (`user_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

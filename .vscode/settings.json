@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./all_func"
+    ],
+    
+}

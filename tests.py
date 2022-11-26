@@ -9,12 +9,12 @@ import json
 import sqlalchemy
 from flask_bcrypt import generate_password_hash
 
-from all_func.app import app
-from all_func.dbmodel import engine, Base, Session, User, Moderator, Article, State, UpdatedArticle
-import  all_func.moderator
-import  all_func.user
+from app import app
+from dbmodel import engine, Base, Session, User, Moderator, Article, State, UpdatedArticle
+import  moderator
+import  user
 
-@patch("all_func.dbmodel.Session")
+@patch("dbmodel.Session")
 class TestAuth(TestCase):
     tester = app.test_client()
     creds = b64encode(b"user:1234567").decode("utf-8")
@@ -74,20 +74,20 @@ class TestAuth(TestCase):
 
     # Tests auth
     def test_auth_moder(self, Session):
-        moder_name = all_func.moderator.verify_password(self.moder["moderatorname"], self.moder["password"])
+        moder_name = moderator.verify_password(self.moder["moderatorname"], self.moder["password"])
         self.assertEqual(moder_name, self.moder["moderatorname"])
 
     def test_non_auth_moder(self, Session):
-        moder_name = all_func.moderator.verify_password(self.moder["moderatorname"], "invalid_pass")
+        moder_name = moderator.verify_password(self.moder["moderatorname"], "invalid_pass")
         self.assertEqual(moder_name, None)
 
     def test_auth_user(self, Session):
-        user_name = all_func.user.verify_password(self.user["username"], self.user["password"])
+        user_name = user.verify_password(self.user["username"], self.user["password"])
         self.assertEqual(user_name, self.user["username"])
 
     def test_non_auth_user(self, Session):
 
-        user_name = all_func.user.verify_password(self.user["username"], "invalid_pass")
+        user_name = user.verify_password(self.user["username"], "invalid_pass")
         self.assertEqual(user_name, None)
 
     # Tests user create
@@ -337,25 +337,25 @@ class TestAuth(TestCase):
         self.assertEqual(500, code)
 
 def delete_user():
-    file = open("C:\\Users\\sova\\Desktop\\SalabayRepo\\pp_project\\all_func\\clean.sql")
+    file = open("C:\\Users\\krvsk\\pp_project\\clean.sql")
     clean = sqlalchemy.text(file.read())
     engine.execute(clean)
     file.close()
 
 def insert_user():
-    file = open("C:\\Users\\sova\\Desktop\\SalabayRepo\\pp_project\\all_func\\user_insert.sql")
+    file = open("C:\\Users\\Mkrvsk\\pp_project\\user_insert.sql")
     clean = sqlalchemy.text(file.read())
     engine.execute(clean)
     file.close()
 
 def create_article():
-    file = open("C:\\Users\\sova\\Desktop\\SalabayRepo\\pp_project\\all_func\\create_article.sql")
+    file = open("C:\\Users\\Mkrvsk\\pp_project\\create_article.sql")
     clean = sqlalchemy.text(file.read())
     engine.execute(clean)
     file.close()
 
 def create_state():
-    file = open("C:\\Users\\sova\\Desktop\\SalabayRepo\\pp_project\\all_func\\create_state.sql")
+    file = open("C:\\Users\\Mkrvsk\\pp_project\\create_state.sql")
     clean = sqlalchemy.text(file.read())
     engine.execute(clean)
     file.close()

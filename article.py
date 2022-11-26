@@ -2,8 +2,8 @@ from flask import Blueprint, Response, request, jsonify
 from marshmallow import ValidationError
 from flask_bcrypt import Bcrypt
 from flask_httpauth import HTTPBasicAuth
-from all_func.dbmodel import Article, Session, User
-from all_func.validation_schemas import ArticleSchema
+from dbmodel import Article, Session, User
+from validation_schemas import ArticleSchema
 
 article = Blueprint('article', __name__)
 bcrypt = Bcrypt()

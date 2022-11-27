@@ -329,12 +329,12 @@ class TestAuth(TestCase):
     def test_updateArticle_get_again(self, Session):
         responce = self.tester.get('/api/v1/updateArticle/10')
         code = responce.status_code
-        self.assertEqual(500, code)
+        self.assertEqual(404, code)
 
     def test_updateArticle_get(self, Session):
         responce = self.tester.get('/api/v1/updateArticle/2')
         code = responce.status_code
-        self.assertEqual(500, code)
+        self.assertEqual(200, code)
 
 def delete_user():
     file = open("C:\\Users\\krvsk\\pp_project\\clean.sql")
